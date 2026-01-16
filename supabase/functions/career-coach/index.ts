@@ -5,7 +5,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const SYSTEM_PROMPT = `You are Poppy, a warm and insightful AI career coach. Help people discover their ideal career path through thoughtful conversation.
+const SYSTEM_PROMPT = `You are Tully, a warm and insightful AI career coach. Help people discover their ideal career path through thoughtful conversation.
 
 CRITICAL RULES:
 - Keep responses SHORT (2-4 sentences max)
