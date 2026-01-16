@@ -9,7 +9,7 @@ interface WelcomeHeroProps {
 export function WelcomeHero({ onStart }: WelcomeHeroProps) {
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 text-center animate-fade-in">
-      <img src={poppyLogo} alt="Poppy" className="w-24 h-24 object-contain mb-8" />
+      <img src={poppyLogo} alt="Poppy" className="w-40 h-40 object-contain mb-8" />
       
       <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight font-serif">
         Your Career,{" "}
