@@ -64,7 +64,7 @@ export default {
         },
       },
       fontFamily: {
-        serif: ["Georgia", "Cambria", "Times New Roman", "Times", "serif"],
+        serif: ['"Playfair Display"', "Georgia", "Cambria", "Times New Roman", "serif"],
       },
       backgroundImage: {
         "poppy-gradient": "linear-gradient(135deg, hsl(var(--poppy-gradient-start)), hsl(var(--poppy-gradient-end)))",
