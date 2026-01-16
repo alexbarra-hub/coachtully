@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Target, Compass, TrendingUp } from "lucide-react";
-import poppyLogo from "@/assets/poppy-logo.png";
+import tullyLogo from "@/assets/tully-logo.png";
 
 interface WelcomeHeroProps {
   onStart: () => void;
@@ -9,7 +9,7 @@ interface WelcomeHeroProps {
 export function WelcomeHero({ onStart }: WelcomeHeroProps) {
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 text-center animate-fade-in">
-      <img src={poppyLogo} alt="Poppy" className="w-48 h-48 object-cover scale-125 mb-8" />
+      <img src={tullyLogo} alt="Tully" className="w-48 h-48 object-cover scale-125 mb-8" />
       
       <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight font-serif">
         Your Career,{" "}
@@ -17,7 +17,7 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
       </h1>
       
       <p className="text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed font-serif">
-        Talk with Poppy, your AI career coach, to discover what truly fulfills you and create a clear path forward.
+        Talk with Tully, your AI career coach, to discover what truly fulfills you and create a clear path forward.
       </p>
 
       <Button
