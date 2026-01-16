@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
-import { Check, X, Sparkles, Calculator, MessageCircle } from "lucide-react";
+import { Check, X, Sparkles, Calculator, MessageCircle, User, Building2 } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   Accordion,
@@ -10,6 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
 import tullyLogo from "@/assets/tully-logo.png";
 
@@ -141,88 +142,182 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* Pricing Toggle */}
+      {/* Pricing Tabs */}
       <section className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-center gap-4 mb-12">
-            <span className={`font-medium ${!isAnnual ? 'text-gray-900' : 'text-gray-400'}`}>Monthly</span>
-            <Switch
-              checked={isAnnual}
-              onCheckedChange={setIsAnnual}
-              className="data-[state=checked]:bg-teal-600"
-            />
-            <span className={`font-medium ${isAnnual ? 'text-gray-900' : 'text-gray-400'}`}>
-              Annual <span className="text-teal-600 text-sm font-semibold">(Save 20%)</span>
-            </span>
-          </div>
-
-          {/* Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {plans.map((plan, index) => (
-              <motion.div
-                key={plan.name}
-                className={`relative rounded-2xl border-2 p-8 ${
-                  plan.popular 
-                    ? 'border-teal-500 bg-teal-50/50 shadow-xl scale-105' 
-                    : 'border-gray-200 bg-white'
-                }`}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+          <Tabs defaultValue="individual" className="w-full">
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-12 h-14 p-1 bg-gray-100 rounded-xl">
+              <TabsTrigger 
+                value="individual" 
+                className="flex items-center gap-2 text-base font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm rounded-lg h-full"
               >
-                {plan.popular && (
+                <User className="w-4 h-4" />
+                Individual
+              </TabsTrigger>
+              <TabsTrigger 
+                value="enterprise" 
+                className="flex items-center gap-2 text-base font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm rounded-lg h-full"
+              >
+                <Building2 className="w-4 h-4" />
+                Enterprise
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Individual Pricing */}
+            <TabsContent value="individual">
+              <div className="flex items-center justify-center gap-4 mb-12">
+                <span className={`font-medium ${!isAnnual ? 'text-gray-900' : 'text-gray-400'}`}>Monthly</span>
+                <Switch
+                  checked={isAnnual}
+                  onCheckedChange={setIsAnnual}
+                  className="data-[state=checked]:bg-teal-600"
+                />
+                <span className={`font-medium ${isAnnual ? 'text-gray-900' : 'text-gray-400'}`}>
+                  Annual <span className="text-teal-600 text-sm font-semibold">(Save 20%)</span>
+                </span>
+              </div>
+
+              <div className="max-w-lg mx-auto">
+                <motion.div
+                  className="relative rounded-2xl border-2 border-teal-500 bg-teal-50/50 shadow-xl p-8"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                     <span className="bg-teal-600 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                      <Sparkles className="w-4 h-4" /> Most Popular
+                      <Sparkles className="w-4 h-4" /> Best for You
                     </span>
                   </div>
-                )}
 
-                <h3 className="text-2xl font-bold text-gray-900 font-serif mb-2">{plan.name}</h3>
-                <div className="mb-6">
-                  <span className="text-4xl font-bold text-gray-900">
-                    ${isAnnual ? plan.annualPrice : plan.monthlyPrice}
-                  </span>
-                  <span className="text-gray-500">/mo</span>
-                  {isAnnual && (
-                    <p className="text-sm text-gray-400 line-through">
-                      ${plan.monthlyPrice}/mo monthly
-                    </p>
-                  )}
-                </div>
+                  <h3 className="text-2xl font-bold text-gray-900 font-serif mb-2">Personal Growth</h3>
+                  <div className="mb-6">
+                    <span className="text-4xl font-bold text-gray-900">
+                      ${isAnnual ? 15 : 19}
+                    </span>
+                    <span className="text-gray-500">/mo</span>
+                    {isAnnual && (
+                      <p className="text-sm text-gray-400 line-through">
+                        $19/mo monthly
+                      </p>
+                    )}
+                  </div>
 
-                <p className="text-sm text-gray-600 mb-6 pb-6 border-b border-gray-100">
-                  <span className="font-semibold">Max Hourly Users:</span> {plan.users}
-                </p>
+                  <p className="text-sm text-gray-600 mb-6 pb-6 border-b border-gray-100">
+                    Perfect for individuals looking to advance their career
+                  </p>
 
-                <ul className="space-y-4 mb-8">
-                  <FeatureRow label="Core Skill Paths" value={plan.features.skillPaths} />
-                  <FeatureRow label="Analytics" value={plan.features.analytics} />
-                  <FeatureRow label="Integrations" value={plan.features.integrations} />
-                  <FeatureRow label="Support" value={plan.features.support} />
-                  <FeatureRow label="Trial" value="14 days free" />
-                </ul>
+                  <ul className="space-y-4 mb-8">
+                    <FeatureRow label="AI Career Coaching" value="Unlimited sessions" />
+                    <FeatureRow label="Personalized Skill Paths" value="All paths included" />
+                    <FeatureRow label="Progress Tracking" value="Detailed analytics" />
+                    <FeatureRow label="Resume Builder" value="AI-powered" />
+                    <FeatureRow label="Interview Prep" value="Practice sessions" />
+                    <FeatureRow label="Support" value="Email + Chat" />
+                    <FeatureRow label="Trial" value="14 days free" />
+                  </ul>
 
-                <Button 
-                  className={`w-full h-12 text-base font-semibold ${
-                    plan.popular 
-                      ? 'bg-teal-600 hover:bg-teal-700 text-white' 
-                      : 'bg-teal-600 hover:bg-teal-700 text-white'
-                  }`}
+                  <Button className="w-full h-12 text-base font-semibold bg-teal-600 hover:bg-teal-700 text-white">
+                    Start 14-day Free Trial
+                  </Button>
+                  <p className="text-xs text-gray-400 text-center mt-3">No credit card required</p>
+                </motion.div>
+              </div>
+
+              <p className="text-center text-gray-500 mt-10 font-serif">
+                Looking for team pricing?{" "}
+                <button 
+                  onClick={() => document.querySelector('[data-state="inactive"][value="enterprise"]')?.dispatchEvent(new Event('click', { bubbles: true }))}
+                  className="text-teal-600 hover:underline"
                 >
-                  Start 14-day Free Trial
-                </Button>
-                <p className="text-xs text-gray-400 text-center mt-3">No credit card required</p>
-              </motion.div>
-            ))}
-          </div>
+                  View Enterprise plans
+                </button>
+              </p>
+            </TabsContent>
 
-          <p className="text-center text-gray-500 mt-10 font-serif">
-            Cancel anytime. Enterprise custom pricing for 250+ staff.{" "}
-            <button className="text-teal-600 hover:underline inline-flex items-center gap-1">
-              <MessageCircle className="w-4 h-4" /> Chat now
-            </button>
-          </p>
+            {/* Enterprise Pricing */}
+            <TabsContent value="enterprise">
+              <div className="flex items-center justify-center gap-4 mb-12">
+                <span className={`font-medium ${!isAnnual ? 'text-gray-900' : 'text-gray-400'}`}>Monthly</span>
+                <Switch
+                  checked={isAnnual}
+                  onCheckedChange={setIsAnnual}
+                  className="data-[state=checked]:bg-teal-600"
+                />
+                <span className={`font-medium ${isAnnual ? 'text-gray-900' : 'text-gray-400'}`}>
+                  Annual <span className="text-teal-600 text-sm font-semibold">(Save 20%)</span>
+                </span>
+              </div>
+
+              {/* Pricing Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {plans.map((plan, index) => (
+                  <motion.div
+                    key={plan.name}
+                    className={`relative rounded-2xl border-2 p-8 ${
+                      plan.popular 
+                        ? 'border-teal-500 bg-teal-50/50 shadow-xl scale-105' 
+                        : 'border-gray-200 bg-white'
+                    }`}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    {plan.popular && (
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                        <span className="bg-teal-600 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                          <Sparkles className="w-4 h-4" /> Most Popular
+                        </span>
+                      </div>
+                    )}
+
+                    <h3 className="text-2xl font-bold text-gray-900 font-serif mb-2">{plan.name}</h3>
+                    <div className="mb-6">
+                      <span className="text-4xl font-bold text-gray-900">
+                        ${isAnnual ? plan.annualPrice : plan.monthlyPrice}
+                      </span>
+                      <span className="text-gray-500">/user/mo</span>
+                      {isAnnual && (
+                        <p className="text-sm text-gray-400 line-through">
+                          ${plan.monthlyPrice}/user/mo monthly
+                        </p>
+                      )}
+                    </div>
+
+                    <p className="text-sm text-gray-600 mb-6 pb-6 border-b border-gray-100">
+                      <span className="font-semibold">Team Size:</span> {plan.users}
+                    </p>
+
+                    <ul className="space-y-4 mb-8">
+                      <FeatureRow label="Core Skill Paths" value={plan.features.skillPaths} />
+                      <FeatureRow label="Analytics" value={plan.features.analytics} />
+                      <FeatureRow label="Integrations" value={plan.features.integrations} />
+                      <FeatureRow label="Support" value={plan.features.support} />
+                      <FeatureRow label="Trial" value="14 days free" />
+                    </ul>
+
+                    <Button 
+                      className={`w-full h-12 text-base font-semibold ${
+                        plan.popular 
+                          ? 'bg-teal-600 hover:bg-teal-700 text-white' 
+                          : 'bg-teal-600 hover:bg-teal-700 text-white'
+                      }`}
+                    >
+                      Start 14-day Free Trial
+                    </Button>
+                    <p className="text-xs text-gray-400 text-center mt-3">No credit card required</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              <p className="text-center text-gray-500 mt-10 font-serif">
+                Cancel anytime. Custom pricing for 250+ staff.{" "}
+                <button className="text-teal-600 hover:underline inline-flex items-center gap-1">
+                  <MessageCircle className="w-4 h-4" /> Chat now
+                </button>
+              </p>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
