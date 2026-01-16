@@ -60,6 +60,7 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
 
       {/* Tully Introduction Section */}
       <motion.div 
+        id="tully-intro"
         className="max-w-2xl mx-auto py-16"
         style={{ opacity: introOpacity, y: introY }}
       >

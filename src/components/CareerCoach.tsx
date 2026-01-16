@@ -6,6 +6,7 @@ import { WelcomeHero } from "@/components/WelcomeHero";
 import { Button } from "@/components/ui/button";
 import { RotateCcw } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Link } from "react-router-dom";
 import tullyLogo from "@/assets/tully-logo.png";
 
 export function CareerCoach() {
@@ -23,6 +24,13 @@ export function CareerCoach() {
     setHasStarted(false);
   };
 
+  const scrollToIntro = () => {
+    const introSection = document.getElementById('tully-intro');
+    if (introSection) {
+      introSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -31,9 +39,25 @@ export function CareerCoach() {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-          <div className="max-w-4xl mx-auto px-6 py-4 flex items-center gap-3">
-            <img src={tullyLogo} alt="Tully" className="w-10 h-10 object-contain" />
-            <span className="font-semibold text-foreground font-serif text-lg">Tully</span>
+          <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img src={tullyLogo} alt="Tully" className="w-10 h-10 object-contain" />
+              <span className="font-semibold text-foreground font-serif text-lg">Tully</span>
+            </div>
+            <nav className="flex items-center gap-6">
+              <button 
+                onClick={scrollToIntro}
+                className="text-muted-foreground hover:text-foreground font-serif text-sm transition-colors"
+              >
+                About
+              </button>
+              <Link 
+                to="/pricing"
+                className="text-muted-foreground hover:text-foreground font-serif text-sm transition-colors"
+              >
+                Pricing
+              </Link>
+            </nav>
           </div>
         </header>
         <WelcomeHero onStart={handleStart} />
