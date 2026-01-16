@@ -3,6 +3,7 @@ import { Users, Briefcase, MessageCircle, Sparkles } from "lucide-react";
 import tullyLogo from "@/assets/tully-logo.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 interface WelcomeHeroProps {
   onStart: () => void;
@@ -146,6 +147,7 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex flex-col sm:flex-row items-center gap-4"
         >
           <Button
             onClick={onStart}
@@ -153,6 +155,14 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
             className="h-14 px-8 text-lg rounded-xl bg-poppy-warm-gradient hover:opacity-90 transition-opacity shadow-md font-serif"
           >
             Start Skills Assessment
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            size="lg"
+            className="h-14 px-8 text-lg rounded-xl font-serif"
+          >
+            <Link to="/pricing">View Pricing</Link>
           </Button>
         </motion.div>
       </motion.div>
