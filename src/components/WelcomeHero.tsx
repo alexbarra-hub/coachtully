@@ -12,12 +12,12 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
       <img src={tullyLogo} alt="Tully" className="w-48 h-48 object-cover scale-125 mb-8" />
       
       <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight font-serif">
-        Your Career,{" "}
-        <span className="text-poppy-warm">Reimagined</span>
+        Level Up{" "}
+        <span className="text-poppy-warm">Your Skills</span>
       </h1>
       
       <p className="text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed font-serif">
-        Talk with Tully, your AI career coach, to discover what truly fulfills you and create a clear path forward.
+        Talk with Tully, your AI upskilling coach, to identify skill gaps, discover learning paths, and navigate your career transition.
       </p>
 
       <Button
@@ -31,18 +31,18 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-3xl w-full">
         <FeatureCard
           icon={<Compass className="w-6 h-6" />}
-          title="Explore Your Values"
-          description="Discover what truly matters to you in work and life"
+          title="Assess Your Skills"
+          description="Identify your strengths and discover skill gaps to address"
         />
         <FeatureCard
           icon={<Target className="w-6 h-6" />}
-          title="Find Your Path"
-          description="Identify careers that align with your unique strengths"
+          title="Find Learning Paths"
+          description="Get personalized recommendations for courses and certifications"
         />
         <FeatureCard
           icon={<TrendingUp className="w-6 h-6" />}
-          title="Take Action"
-          description="Get concrete steps to move toward your goals"
+          title="Make the Transition"
+          description="Navigate career pivots with confidence and a clear plan"
         />
       </div>
     </div>
