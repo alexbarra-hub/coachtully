@@ -4,8 +4,9 @@ import { ChatMessage } from "@/components/ChatMessage";
 import { ChatInput } from "@/components/ChatInput";
 import { WelcomeHero } from "@/components/WelcomeHero";
 import { Button } from "@/components/ui/button";
-import { RotateCcw, Flower2 } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import poppyLogo from "@/assets/poppy-logo.png";
 
 export function CareerCoach() {
   const { messages, isLoading, isStreaming, sendMessage, startConversation, resetChat } = useCareerCoach();
@@ -31,9 +32,7 @@ export function CareerCoach() {
       <div className="min-h-screen bg-background flex flex-col">
         <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-poppy-warm-gradient flex items-center justify-center">
-              <Flower2 className="w-5 h-5 text-accent-foreground" />
-            </div>
+            <img src={poppyLogo} alt="Poppy" className="w-10 h-10 object-contain" />
             <span className="font-semibold text-foreground font-serif text-lg">Poppy</span>
           </div>
         </header>
@@ -47,9 +46,7 @@ export function CareerCoach() {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-poppy-warm-gradient flex items-center justify-center">
-              <Flower2 className="w-5 h-5 text-accent-foreground" />
-            </div>
+            <img src={poppyLogo} alt="Poppy" className="w-10 h-10 object-contain" />
             <span className="font-semibold text-foreground font-serif text-lg">Poppy</span>
           </div>
           <Button
