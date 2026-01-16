@@ -316,70 +316,68 @@ export default function Pricing() {
                   <MessageCircle className="w-4 h-4" /> Chat now
                 </button>
               </p>
+
+              {/* Feature Comparison Table */}
+              <div className="mt-16 pt-16 border-t border-gray-200">
+                <h2 className="text-3xl font-bold text-center text-gray-900 font-serif mb-12">
+                  Compare All Features
+                </h2>
+                
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200">
+                          <th className="text-left py-4 px-6 font-semibold text-gray-900">Feature</th>
+                          <th className="text-center py-4 px-4 font-semibold text-gray-900">Starter</th>
+                          <th className="text-center py-4 px-4 font-semibold text-teal-600">Growth</th>
+                          <th className="text-center py-4 px-4 font-semibold text-gray-900">Pro</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ComparisonRow 
+                          feature="Team Size" 
+                          starter="Up to 25" 
+                          growth="26-100" 
+                          pro="101-250" 
+                        />
+                        <ComparisonRow 
+                          feature="Core Skill Paths" 
+                          starter="Basic (5 paths)" 
+                          growth="Custom paths" 
+                          pro="Advanced + gamification" 
+                        />
+                        <ComparisonRow 
+                          feature="Analytics" 
+                          starter="Core" 
+                          growth="Retention reports" 
+                          pro="Manager dashboards" 
+                        />
+                        <ComparisonRow 
+                          feature="Integrations" 
+                          starter={false} 
+                          growth="Gusto/Slack" 
+                          pro="Full API" 
+                        />
+                        <ComparisonRow 
+                          feature="Support" 
+                          starter="Email" 
+                          growth="Priority chat" 
+                          pro="Dedicated onboarding" 
+                        />
+                        <ComparisonRow 
+                          feature="Free Trial" 
+                          starter="14 days" 
+                          growth="14 days" 
+                          pro="14 days" 
+                        />
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </TabsContent>
           </Tabs>
-        </div>
-      </section>
-
-      {/* Feature Comparison Table */}
-      <section className="py-16 px-6 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-900 font-serif mb-12">
-            Compare All Features
-          </h2>
-          
-          <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <th className="text-left py-4 px-6 font-semibold text-gray-900">Feature</th>
-                    <th className="text-center py-4 px-4 font-semibold text-gray-900">Starter</th>
-                    <th className="text-center py-4 px-4 font-semibold text-teal-600">Growth</th>
-                    <th className="text-center py-4 px-4 font-semibold text-gray-900">Pro</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ComparisonRow 
-                    feature="Max Hourly Users" 
-                    starter="Up to 25" 
-                    growth="26-100" 
-                    pro="101-250" 
-                  />
-                  <ComparisonRow 
-                    feature="Core Skill Paths" 
-                    starter="Basic (5 paths)" 
-                    growth="Custom paths" 
-                    pro="Advanced + gamification" 
-                  />
-                  <ComparisonRow 
-                    feature="Analytics" 
-                    starter="Core" 
-                    growth="Retention reports" 
-                    pro="Manager dashboards" 
-                  />
-                  <ComparisonRow 
-                    feature="Integrations" 
-                    starter={false} 
-                    growth="Gusto/Slack" 
-                    pro="Full API" 
-                  />
-                  <ComparisonRow 
-                    feature="Support" 
-                    starter="Email" 
-                    growth="Priority chat" 
-                    pro="Dedicated onboarding" 
-                  />
-                  <ComparisonRow 
-                    feature="Free Trial" 
-                    starter="14 days" 
-                    growth="14 days" 
-                    pro="14 days" 
-                  />
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
       </section>
 
