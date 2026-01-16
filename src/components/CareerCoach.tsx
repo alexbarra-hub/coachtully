@@ -4,7 +4,7 @@ import { ChatMessage } from "@/components/ChatMessage";
 import { ChatInput } from "@/components/ChatInput";
 import { WelcomeHero } from "@/components/WelcomeHero";
 import { Button } from "@/components/ui/button";
-import { RotateCcw, Sparkles } from "lucide-react";
+import { RotateCcw, Flower2 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function CareerCoach() {
@@ -31,10 +31,10 @@ export function CareerCoach() {
       <div className="min-h-screen bg-background flex flex-col">
         <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-coach-warm-gradient flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-primary-foreground" />
+            <div className="w-9 h-9 rounded-lg bg-poppy-warm-gradient flex items-center justify-center">
+              <Flower2 className="w-5 h-5 text-accent-foreground" />
             </div>
-            <span className="font-semibold text-foreground">Career Coach</span>
+            <span className="font-semibold text-foreground font-serif text-lg">Poppy</span>
           </div>
         </header>
         <WelcomeHero onStart={handleStart} />
@@ -47,16 +47,16 @@ export function CareerCoach() {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-coach-warm-gradient flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-primary-foreground" />
+            <div className="w-9 h-9 rounded-lg bg-poppy-warm-gradient flex items-center justify-center">
+              <Flower2 className="w-5 h-5 text-accent-foreground" />
             </div>
-            <span className="font-semibold text-foreground">Career Coach</span>
+            <span className="font-semibold text-foreground font-serif text-lg">Poppy</span>
           </div>
           <Button
             variant="ghost"
             size="sm"
             onClick={handleReset}
-            className="text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground font-serif"
           >
             <RotateCcw className="w-4 h-4 mr-2" />
             New Chat
@@ -85,7 +85,7 @@ export function CareerCoach() {
             isLoading={isLoading}
             placeholder="Share your thoughts about your career..."
           />
-          <p className="text-xs text-muted-foreground text-center mt-3">
+          <p className="text-xs text-muted-foreground text-center mt-3 font-serif">
             Your conversation is private and not stored.
           </p>
         </div>

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { User, Sparkles } from "lucide-react";
+import { User, Flower2 } from "lucide-react";
 
 interface ChatMessageProps {
   role: "user" | "assistant";
@@ -22,13 +22,13 @@ export function ChatMessage({ role, content, isStreaming }: ChatMessageProps) {
           "flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center",
           isUser
             ? "bg-primary text-primary-foreground"
-            : "bg-coach-warm-gradient text-primary-foreground"
+            : "bg-poppy-warm-gradient text-accent-foreground"
         )}
       >
         {isUser ? (
           <User className="w-5 h-5" />
         ) : (
-          <Sparkles className="w-5 h-5" />
+          <Flower2 className="w-5 h-5" />
         )}
       </div>
       <div
@@ -39,7 +39,7 @@ export function ChatMessage({ role, content, isStreaming }: ChatMessageProps) {
             : "bg-card text-card-foreground shadow-sm border border-border rounded-tl-md"
         )}
       >
-        <p className="text-sm leading-relaxed whitespace-pre-wrap">
+        <p className="text-sm leading-relaxed whitespace-pre-wrap font-serif">
           {content}
           {isStreaming && (
             <span className="inline-flex ml-1">

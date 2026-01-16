@@ -57,15 +57,18 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        coach: {
-          warm: "hsl(var(--coach-warm))",
-          "warm-light": "hsl(var(--coach-warm-light))",
-          surface: "hsl(var(--coach-surface))",
+        poppy: {
+          warm: "hsl(var(--poppy-warm))",
+          "warm-light": "hsl(var(--poppy-warm-light))",
+          surface: "hsl(var(--poppy-surface))",
         },
       },
+      fontFamily: {
+        serif: ["Georgia", "Cambria", "Times New Roman", "Times", "serif"],
+      },
       backgroundImage: {
-        "coach-gradient": "linear-gradient(135deg, hsl(var(--coach-gradient-start)), hsl(var(--coach-gradient-end)))",
-        "coach-warm-gradient": "linear-gradient(135deg, hsl(var(--coach-warm)), hsl(35, 75%, 45%))",
+        "poppy-gradient": "linear-gradient(135deg, hsl(var(--poppy-gradient-start)), hsl(var(--poppy-gradient-end)))",
+        "poppy-warm-gradient": "linear-gradient(135deg, hsl(var(--poppy-warm)), hsl(0, 55%, 55%))",
       },
       borderRadius: {
         lg: "var(--radius)",

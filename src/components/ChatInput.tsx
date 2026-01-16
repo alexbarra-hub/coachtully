@@ -45,7 +45,7 @@ export function ChatInput({ onSend, isLoading, placeholder = "Type your message.
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={isLoading}
-          className="min-h-[52px] max-h-[120px] resize-none pr-4 py-3.5 text-base rounded-xl border-border bg-card focus-visible:ring-accent"
+          className="min-h-[52px] max-h-[120px] resize-none pr-4 py-3.5 text-base rounded-xl border-border bg-card focus-visible:ring-accent font-serif"
           rows={1}
         />
       </div>
@@ -53,7 +53,7 @@ export function ChatInput({ onSend, isLoading, placeholder = "Type your message.
         onClick={handleSubmit}
         disabled={!input.trim() || isLoading}
         size="lg"
-        className="h-[52px] w-[52px] rounded-xl bg-coach-warm-gradient hover:opacity-90 transition-opacity"
+        className="h-[52px] w-[52px] rounded-xl bg-poppy-warm-gradient hover:opacity-90 transition-opacity"
       >
         <Send className="w-5 h-5" />
       </Button>
