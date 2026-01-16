@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Target, Compass, TrendingUp } from "lucide-react";
+import { Gamepad2, Award, TrendingUp } from "lucide-react";
 import tullyLogo from "@/assets/tully-logo.png";
 
 interface WelcomeHeroProps {
@@ -12,12 +12,12 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
       <img src={tullyLogo} alt="Tully" className="w-48 h-48 object-cover scale-125 mb-8" />
       
       <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight font-serif">
-        Level Up{" "}
-        <span className="text-poppy-warm">Your Skills</span>
+        Grow Your{" "}
+        <span className="text-poppy-warm">Career</span>
       </h1>
       
       <p className="text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed font-serif">
-        Talk with Tully, your AI upskilling coach, to identify skill gaps, discover learning paths, and navigate your career transition.
+        Your AI coach for going from frontline to leadership. Personalized learning, real scenarios, and a clear path to your next promotion.
       </p>
 
       <Button
@@ -30,19 +30,19 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-3xl w-full">
         <FeatureCard
-          icon={<Compass className="w-6 h-6" />}
-          title="Assess Your Skills"
-          description="Identify your strengths and discover skill gaps to address"
+          icon={<Award className="w-6 h-6" />}
+          title="Skills Assessment"
+          description="Discover your strengths and get a personalized growth plan"
         />
         <FeatureCard
-          icon={<Target className="w-6 h-6" />}
-          title="Find Learning Paths"
-          description="Get personalized recommendations for courses and certifications"
+          icon={<Gamepad2 className="w-6 h-6" />}
+          title="Learn by Doing"
+          description="Gamified scenarios and role-plays that build real skills"
         />
         <FeatureCard
           icon={<TrendingUp className="w-6 h-6" />}
-          title="Make the Transition"
-          description="Navigate career pivots with confidence and a clear plan"
+          title="Track to Promotion"
+          description="See your progress toward supervisor and leadership roles"
         />
       </div>
     </div>

@@ -80,7 +80,7 @@ export function CareerCoach() {
           <ChatInput
             onSend={sendMessage}
             isLoading={isLoading}
-            placeholder="Tell me about the skills you want to develop..."
+            placeholder="Tell me about your current role and goals..."
           />
           <p className="text-xs text-muted-foreground text-center mt-3 font-serif">
             Your conversation is private and not stored.
