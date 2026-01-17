@@ -83,7 +83,7 @@ export function CareerCoach() {
               ) : (
                 <Button 
                   asChild
-                  className="bg-teal-600 hover:bg-teal-700 text-white font-serif text-sm font-medium"
+                  className="bg-poppy-warm-gradient hover:opacity-90 transition-opacity text-white font-serif text-sm font-medium"
                 >
                   <Link to="/auth">
                     Start Your Trial Now!
