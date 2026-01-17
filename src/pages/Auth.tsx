@@ -73,7 +73,7 @@ export default function Auth() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-poppy-warm" />
       </div>
     );
   }
@@ -149,7 +149,7 @@ export default function Auth() {
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-teal-600 hover:bg-teal-700 text-white font-semibold"
+                className="w-full h-12 bg-poppy-warm-gradient hover:opacity-90 transition-opacity text-white font-semibold"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -168,7 +168,7 @@ export default function Auth() {
                   setIsSignUp(!isSignUp);
                   setError(null);
                 }}
-                className="text-sm text-teal-600 hover:text-teal-700 font-serif"
+                className="text-sm text-poppy-warm hover:text-poppy-warm/80 font-serif"
               >
                 {isSignUp 
                   ? "Already have an account? Sign in" 

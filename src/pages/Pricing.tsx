@@ -88,7 +88,7 @@ export default function Pricing() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-teal-600 via-teal-700 to-blue-800 text-white py-20 px-6">
+      <section className="bg-poppy-warm-gradient text-white py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <motion.h1 
             className="text-4xl md:text-5xl font-bold mb-6 font-serif leading-tight"
@@ -117,10 +117,10 @@ export default function Pricing() {
             <Switch
               checked={isAnnual}
               onCheckedChange={setIsAnnual}
-              className="data-[state=checked]:bg-teal-600"
+              className="data-[state=checked]:bg-poppy-warm"
             />
             <span className={`font-medium ${isAnnual ? 'text-gray-900' : 'text-gray-400'}`}>
-              Annual <span className="text-teal-600 text-sm font-semibold">(Save 20%)</span>
+              Annual <span className="text-poppy-warm text-sm font-semibold">(Save 20%)</span>
             </span>
           </div>
 
@@ -131,7 +131,7 @@ export default function Pricing() {
                 key={plan.name}
                 className={`relative rounded-2xl border-2 p-8 ${
                   plan.popular 
-                    ? 'border-teal-500 bg-teal-50/50 shadow-xl scale-105' 
+                    ? 'border-poppy-warm bg-poppy-warm/5 shadow-xl scale-105' 
                     : 'border-gray-200 bg-white'
                 }`}
                 initial={{ opacity: 0, y: 30 }}
@@ -140,7 +140,7 @@ export default function Pricing() {
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <span className="bg-teal-600 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                    <span className="bg-poppy-warm-gradient text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
                       <Sparkles className="w-4 h-4" /> Most Popular
                     </span>
                   </div>
@@ -183,7 +183,7 @@ export default function Pricing() {
 
           <p className="text-center text-gray-500 mt-10 font-serif">
             Cancel anytime. Custom pricing for 250+ staff.{" "}
-            <button className="text-teal-600 hover:underline inline-flex items-center gap-1">
+            <button className="text-poppy-warm hover:underline inline-flex items-center gap-1">
               <MessageCircle className="w-4 h-4" /> Chat now
             </button>
           </p>
@@ -204,7 +204,7 @@ export default function Pricing() {
                   <tr className="bg-gray-50 border-b border-gray-200">
                     <th className="text-left py-4 px-6 font-semibold text-gray-900">Feature</th>
                     <th className="text-center py-4 px-4 font-semibold text-gray-900">Starter</th>
-                    <th className="text-center py-4 px-4 font-semibold text-teal-600">Growth</th>
+                    <th className="text-center py-4 px-4 font-semibold text-poppy-warm">Growth</th>
                     <th className="text-center py-4 px-4 font-semibold text-gray-900">Pro</th>
                   </tr>
                 </thead>
@@ -279,7 +279,7 @@ export default function Pricing() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 px-6 bg-gradient-to-br from-teal-600 to-blue-700 text-white">
+      <section className="py-16 px-6 bg-poppy-warm-gradient text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold font-serif mb-12">
             Trusted by Growing Businesses
@@ -290,13 +290,13 @@ export default function Pricing() {
               <p className="text-xl font-serif italic mb-4">
                 "Saved $15K in hiring costs"
               </p>
-              <p className="text-teal-200 font-semibold">— Retail Chain Owner</p>
+              <p className="text-white/80 font-semibold">— Retail Chain Owner</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
               <p className="text-xl font-serif italic mb-4">
                 "Our turnover dropped 25% in 3 months"
               </p>
-              <p className="text-teal-200 font-semibold">— Restaurant Group Manager</p>
+              <p className="text-white/80 font-semibold">— Restaurant Group Manager</p>
             </div>
           </div>
 
@@ -325,7 +325,7 @@ function FeatureRow({ label, value }: { label: string; value: string | boolean }
   return (
     <li className="flex items-start gap-3">
       {value ? (
-        <Check className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0" />
+        <Check className="w-5 h-5 text-poppy-warm mt-0.5 flex-shrink-0" />
       ) : (
         <X className="w-5 h-5 text-gray-300 mt-0.5 flex-shrink-0" />
       )}
@@ -352,7 +352,7 @@ function ComparisonRow({
 }) {
   const renderCell = (value: string | boolean) => {
     if (value === false) return <X className="w-5 h-5 text-gray-300 mx-auto" />;
-    if (value === true) return <Check className="w-5 h-5 text-teal-600 mx-auto" />;
+    if (value === true) return <Check className="w-5 h-5 text-poppy-warm mx-auto" />;
     return <span className="text-sm text-gray-700">{value}</span>;
   };
 
@@ -360,7 +360,7 @@ function ComparisonRow({
     <tr className="border-b border-gray-100 last:border-0">
       <td className="py-4 px-6 text-sm font-medium text-gray-900">{feature}</td>
       <td className="py-4 px-4 text-center">{renderCell(starter)}</td>
-      <td className="py-4 px-4 text-center bg-teal-50/50">{renderCell(growth)}</td>
+      <td className="py-4 px-4 text-center bg-poppy-warm/5">{renderCell(growth)}</td>
       <td className="py-4 px-4 text-center">{renderCell(pro)}</td>
     </tr>
   );
