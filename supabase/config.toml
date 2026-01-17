@@ -1,4 +1,4 @@
 project_id = "fntlexucdzivwqzeuzdv"
 
 [functions.career-coach]
-verify_jwt = true
+verify_jwt = false
