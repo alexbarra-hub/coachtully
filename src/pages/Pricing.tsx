@@ -104,41 +104,13 @@ export default function Pricing() {
             Upskill Hourly Teams for Promotions – Cut Turnover 20%
           </motion.h1>
           <motion.p 
-            className="text-xl text-teal-100 mb-10 font-serif"
+            className="text-xl text-teal-100 font-serif"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             Affordable AI coaching from frontline to manager. ROI in weeks, not months.
           </motion.p>
-
-          {/* ROI Calculator */}
-          <motion.div 
-            className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 max-w-md mx-auto border border-white/20"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Calculator className="w-5 h-5 text-teal-200" />
-              <span className="font-semibold text-lg">ROI Calculator</span>
-            </div>
-            <label className="block text-sm text-teal-100 mb-2 text-left">Enter your headcount:</label>
-            <Input
-              type="number"
-              value={headcount}
-              onChange={(e) => setHeadcount(Number(e.target.value) || 0)}
-              className="bg-white/20 border-white/30 text-white placeholder:text-white/50 text-lg h-12 mb-4"
-              placeholder="50"
-            />
-            <div className="bg-teal-500/30 rounded-xl p-4">
-              <p className="text-sm text-teal-100 mb-1">Estimated Annual Savings</p>
-              <p className="text-3xl font-bold text-white">
-                ${annualSavings.toLocaleString()}
-              </p>
-              <p className="text-xs text-teal-200 mt-1">from reduced turnover</p>
-            </div>
-          </motion.div>
         </div>
       </section>
 
