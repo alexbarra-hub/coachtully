@@ -172,11 +172,7 @@ export default function Pricing() {
                 </ul>
 
                 <Button 
-                  className={`w-full h-12 text-base font-semibold ${
-                    plan.popular 
-                      ? 'bg-teal-600 hover:bg-teal-700 text-white' 
-                      : 'bg-teal-600 hover:bg-teal-700 text-white'
-                  }`}
+                  className="w-full h-12 text-base font-semibold bg-poppy-warm-gradient hover:opacity-90 transition-opacity text-white"
                 >
                   Start 14-day Free Trial
                 </Button>
@@ -317,7 +313,7 @@ export default function Pricing() {
       {/* Footer CTA */}
       <section className="py-12 px-6 bg-gray-900 text-white text-center">
         <p className="text-gray-400 mb-4">Ready to reduce turnover and grow your team?</p>
-        <Button size="lg" className="bg-teal-500 hover:bg-teal-600 text-white h-14 px-8 text-lg">
+        <Button size="lg" className="bg-poppy-warm-gradient hover:opacity-90 transition-opacity text-white h-14 px-8 text-lg">
           Start Your Free Trial Today
         </Button>
       </section>
