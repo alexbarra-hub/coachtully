@@ -42,12 +42,9 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
           onMouseLeave={() => setIsHeroHovered(false)}
         />
         
-        <div className="flex items-center gap-3 mb-4">
-          <img src={tullyLogo} alt="Tully" className="w-12 h-12 object-cover" />
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight font-serif">
-            Grow your career with <span className="text-poppy-warm">Tully</span>
-          </h1>
-        </div>
+        <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight font-serif mb-4">
+          Grow your career with <span className="text-poppy-warm">Tully</span>
+        </h1>
         
         <p className="text-lg text-muted-foreground max-w-xl mb-6 leading-relaxed font-serif">
           Your AI coach for building the skills that get you promoted.
