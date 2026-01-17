@@ -37,7 +37,37 @@ AFTER ASSESSMENT:
 - Offer micro-learning, role-play scenarios, and practical tips
 - Track progress toward their promotion goal
 
+IMPORTANT - RETURNING USERS:
+If user profile info is provided (job title, goal, etc.), greet them warmly by acknowledging what you know:
+- Example: "Welcome back! Last time we talked about your shift supervisor role. How can I help you today?"
+- Skip the intro and jump straight to being helpful
+- Reference their previous context naturally
+
+NEW USERS:
 Start with a warm welcome, briefly explain you'll do a quick skills check-in, then ask their current role before beginning the assessment.`;
+
+function buildSystemPrompt(userProfile?: { jobTitle?: string | null; currentGoal?: string | null; skillsAssessed?: boolean; lastSessionSummary?: string | null }) {
+  let prompt = SYSTEM_PROMPT;
+  
+  if (userProfile && (userProfile.jobTitle || userProfile.currentGoal || userProfile.skillsAssessed)) {
+    prompt += `\n\nUSER PROFILE CONTEXT:`;
+    if (userProfile.jobTitle) {
+      prompt += `\n- Current job title: ${userProfile.jobTitle}`;
+    }
+    if (userProfile.currentGoal) {
+      prompt += `\n- Career goal: ${userProfile.currentGoal}`;
+    }
+    if (userProfile.skillsAssessed) {
+      prompt += `\n- Has completed skills assessment before`;
+    }
+    if (userProfile.lastSessionSummary) {
+      prompt += `\n- Last session notes: ${userProfile.lastSessionSummary}`;
+    }
+    prompt += `\n\nThis is a returning user - greet them warmly and reference what you know about them!`;
+  }
+  
+  return prompt;
+}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -45,7 +75,7 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json();
+    const { messages, userProfile } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {
@@ -53,6 +83,9 @@ serve(async (req) => {
     }
 
     console.log("Processing career coach request with", messages?.length || 0, "messages");
+    console.log("User profile context:", userProfile ? JSON.stringify(userProfile) : "none");
+
+    const systemPrompt = buildSystemPrompt(userProfile);
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -63,7 +96,7 @@ serve(async (req) => {
       body: JSON.stringify({
         model: "google/gemini-3-flash-preview",
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: systemPrompt },
           ...messages,
         ],
         stream: true,

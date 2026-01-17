@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { toast } from "sonner";
+import { useUserProfile, UserProfile } from "./useUserProfile";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -8,13 +9,44 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/career-coach
 export function useCareerCoach() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { profile, updateProfile } = useUserProfile();
   const [isStreaming, setIsStreaming] = useState(false);
+
+  // Extract job title from user message (simple pattern matching)
+  const extractJobTitle = (message: string): string | null => {
+    const patterns = [
+      /i(?:'m| am) (?:a |an |the )?(.+?)(?:\.|,|$| at | in | for | and )/i,
+      /(?:work as|working as) (?:a |an |the )?(.+?)(?:\.|,|$| at | in )/i,
+      /(?:my (?:job|role|position|title) is) (?:a |an |the )?(.+?)(?:\.|,|$)/i,
+      /(?:currently|right now) (?:a |an |the )?(.+?)(?:\.|,|$| at | in )/i,
+    ];
+    
+    for (const pattern of patterns) {
+      const match = message.match(pattern);
+      if (match && match[1]) {
+        const title = match[1].trim();
+        // Filter out non-job responses
+        if (title.length > 2 && title.length < 50 && !title.includes("looking") && !title.includes("want")) {
+          return title;
+        }
+      }
+    }
+    return null;
+  };
 
   const sendMessage = useCallback(async (input: string) => {
     const userMsg: Message = { role: "user", content: input };
     setMessages(prev => [...prev, userMsg]);
     setIsLoading(true);
     setIsStreaming(true);
+
+    // Try to extract and save job title if not already set
+    if (!profile.jobTitle) {
+      const detectedTitle = extractJobTitle(input);
+      if (detectedTitle) {
+        updateProfile({ jobTitle: detectedTitle });
+      }
+    }
 
     let assistantContent = "";
 
@@ -25,7 +57,10 @@ export function useCareerCoach() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ messages: [...messages, userMsg] }),
+        body: JSON.stringify({ 
+          messages: [...messages, userMsg],
+          userProfile: profile,
+        }),
       });
 
       if (!resp.ok) {
@@ -134,7 +169,7 @@ export function useCareerCoach() {
       setIsLoading(false);
       setIsStreaming(false);
     }
-  }, [messages]);
+  }, [messages, profile, updateProfile]);
 
   const startConversation = useCallback(async () => {
     setIsLoading(true);
@@ -149,7 +184,10 @@ export function useCareerCoach() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ messages: [] }),
+        body: JSON.stringify({ 
+          messages: [],
+          userProfile: profile,
+        }),
       });
 
       if (!resp.ok || !resp.body) {
@@ -201,11 +239,16 @@ export function useCareerCoach() {
       setIsLoading(false);
       setIsStreaming(false);
     }
-  }, []);
+  }, [profile]);
 
   const resetChat = useCallback(() => {
     setMessages([]);
   }, []);
+
+  // Save profile details extracted from conversation
+  const saveProfileDetails = useCallback(async (details: Partial<UserProfile>) => {
+    await updateProfile(details);
+  }, [updateProfile]);
 
   return {
     messages,
@@ -214,5 +257,7 @@ export function useCareerCoach() {
     sendMessage,
     startConversation,
     resetChat,
+    saveProfileDetails,
+    profile,
   };
 }
