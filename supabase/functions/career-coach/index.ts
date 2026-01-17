@@ -11,13 +11,19 @@ const ALLOWED_ORIGINS = [
   "https://id-preview--3a53c75f-053b-4810-bc87-cb1747fabeb1.lovable.app",
 ];
 
-// Development origins (localhost) - pattern match for any port
-const DEV_ORIGIN_PATTERN = /^https?:\/\/localhost(:\d+)?$/;
+// Development/preview origins - pattern match for lovableproject.com and localhost
+const DEV_ORIGIN_PATTERNS = [
+  /^https?:\/\/localhost(:\d+)?$/,
+  /^https:\/\/[a-z0-9-]+\.lovableproject\.com$/,  // Lovable preview domains
+];
+
+function isAllowedOrigin(origin: string): boolean {
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
+  return DEV_ORIGIN_PATTERNS.some(pattern => pattern.test(origin));
+}
 
 function getCorsHeaders(origin: string | null): Record<string, string> {
-  const allowedOrigin = origin && (
-    ALLOWED_ORIGINS.includes(origin) || DEV_ORIGIN_PATTERN.test(origin)
-  ) ? origin : ALLOWED_ORIGINS[0];
+  const allowedOrigin = origin && isAllowedOrigin(origin) ? origin : ALLOWED_ORIGINS[0];
   
   return {
     "Access-Control-Allow-Origin": allowedOrigin,
