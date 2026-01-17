@@ -96,7 +96,7 @@ export default function Pricing() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Upskill Hourly Teams for Promotions – Cut Turnover 20%
+            Build the Skills That Get Your Team Promoted
           </motion.h1>
           <motion.p 
             className="text-xl text-teal-100 font-serif"
@@ -104,7 +104,7 @@ export default function Pricing() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Affordable AI coaching from frontline to manager. ROI in weeks, not months.
+            AI coaching that develops real skills – from frontline to leadership.
           </motion.p>
         </div>
       </section>
@@ -312,7 +312,7 @@ export default function Pricing() {
 
       {/* Footer CTA */}
       <section className="py-12 px-6 bg-gray-900 text-white text-center">
-        <p className="text-gray-400 mb-4">Ready to reduce turnover and grow your team?</p>
+        <p className="text-gray-400 mb-4">Ready to build the skills your team needs to grow?</p>
         <Button size="lg" className="bg-poppy-warm-gradient hover:opacity-90 transition-opacity text-white h-14 px-8 text-lg">
           Start Your Free Trial Today
         </Button>
