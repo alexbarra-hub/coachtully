@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Users, Briefcase, MessageCircle, Sparkles } from "lucide-react";
 import tullyLogo from "@/assets/tully-logo.png";
+import tullyLogoOpen from "@/assets/tully-logo-open.png";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 interface WelcomeHeroProps {
@@ -11,6 +12,8 @@ interface WelcomeHeroProps {
 
 export function WelcomeHero({ onStart }: WelcomeHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isHeroHovered, setIsHeroHovered] = useState(false);
+  const [isIntroHovered, setIsIntroHovered] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -31,10 +34,12 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
         transition={{ duration: 0.6 }}
       >
         <motion.img 
-          src={tullyLogo} 
+          src={isHeroHovered ? tullyLogoOpen : tullyLogo} 
           alt="Tully" 
-          className="w-48 h-48 object-cover mb-8"
+          className="w-48 h-48 object-cover mb-8 cursor-pointer transition-transform hover:scale-105"
           style={{ scale: logoScale, y: logoY }}
+          onMouseEnter={() => setIsHeroHovered(true)}
+          onMouseLeave={() => setIsHeroHovered(false)}
         />
         
         <div className="flex items-center gap-3 mb-4">
@@ -74,7 +79,13 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
           </div>
           
           <div className="flex items-start gap-4 mt-4">
-            <img src={tullyLogo} alt="Tully" className="w-16 h-16 object-cover rounded-full border-2 border-poppy-warm" />
+            <img 
+              src={isIntroHovered ? tullyLogoOpen : tullyLogo} 
+              alt="Tully" 
+              className="w-16 h-16 object-cover rounded-full border-2 border-poppy-warm cursor-pointer transition-transform hover:scale-110"
+              onMouseEnter={() => setIsIntroHovered(true)}
+              onMouseLeave={() => setIsIntroHovered(false)}
+            />
             <div className="text-left">
               <h2 className="font-semibold text-foreground font-serif text-xl mb-2">
                 Hi, I'm Tully! 👋
