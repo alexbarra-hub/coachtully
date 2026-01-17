@@ -2,9 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCareerCoach } from "@/hooks/useCareerCoach";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTrialStatus } from "@/hooks/useTrialStatus";
 import { ChatMessage } from "@/components/ChatMessage";
 import { ChatInput } from "@/components/ChatInput";
 import { WelcomeHero } from "@/components/WelcomeHero";
+import { TrialExpiredModal } from "@/components/TrialExpiredModal";
+import { TrialBanner } from "@/components/TrialBanner";
 import { Button } from "@/components/ui/button";
 import { RotateCcw, LogOut } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -14,7 +17,9 @@ import tullyLogo from "@/assets/tully-logo.png";
 export function CareerCoach() {
   const { messages, isLoading, isStreaming, sendMessage, startConversation, resetChat } = useCareerCoach();
   const { user, isLoading: authLoading, signOut } = useAuth();
+  const { trialStatus, isLoading: trialLoading } = useTrialStatus();
   const [hasStarted, setHasStarted] = useState(false);
+  const [showExpiredModal, setShowExpiredModal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
@@ -24,6 +29,13 @@ export function CareerCoach() {
       navigate("/auth");
       return;
     }
+    
+    // Check if trial has expired
+    if (trialStatus.isExpired) {
+      setShowExpiredModal(true);
+      return;
+    }
+    
     setHasStarted(true);
     await startConversation();
   };
@@ -53,6 +65,13 @@ export function CareerCoach() {
   if (!hasStarted) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
+        {user && trialStatus.isTrialing && (
+          <TrialBanner daysRemaining={trialStatus.daysRemaining} />
+        )}
+        <TrialExpiredModal 
+          isOpen={showExpiredModal} 
+          onClose={() => setShowExpiredModal(false)} 
+        />
         <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -100,6 +119,13 @@ export function CareerCoach() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      {trialStatus.isTrialing && (
+        <TrialBanner daysRemaining={trialStatus.daysRemaining} />
+      )}
+      <TrialExpiredModal 
+        isOpen={showExpiredModal} 
+        onClose={() => setShowExpiredModal(false)} 
+      />
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
