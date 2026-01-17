@@ -149,51 +149,113 @@ export default function Pricing() {
                 </span>
               </div>
 
-              <div className="max-w-lg mx-auto">
-                <motion.div
-                  className="relative rounded-2xl border-2 border-teal-500 bg-teal-50/50 shadow-xl p-8"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <span className="bg-teal-600 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                      <Sparkles className="w-4 h-4" /> Best for You
-                    </span>
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-gray-900 font-serif mb-2">Personal Growth</h3>
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold text-gray-900">
-                      ${isAnnual ? 15 : 19}
-                    </span>
-                    <span className="text-gray-500">/mo</span>
-                    {isAnnual && (
-                      <p className="text-sm text-gray-400 line-through">
-                        $19/mo monthly
-                      </p>
+              {/* Individual Pricing Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {[
+                  {
+                    name: "Basic",
+                    monthlyPrice: 9,
+                    annualPrice: 7,
+                    popular: false,
+                    description: "Get started with career coaching",
+                    features: {
+                      coaching: "5 sessions/month",
+                      skillPaths: "3 paths",
+                      progress: "Basic tracking",
+                      resume: false,
+                      interview: false,
+                      support: "Email",
+                    },
+                  },
+                  {
+                    name: "Pro",
+                    monthlyPrice: 19,
+                    annualPrice: 15,
+                    popular: true,
+                    description: "Perfect for serious career growth",
+                    features: {
+                      coaching: "Unlimited sessions",
+                      skillPaths: "All paths",
+                      progress: "Detailed analytics",
+                      resume: "AI-powered",
+                      interview: "Practice sessions",
+                      support: "Email + Chat",
+                    },
+                  },
+                  {
+                    name: "Premium",
+                    monthlyPrice: 39,
+                    annualPrice: 31,
+                    popular: false,
+                    description: "For accelerated career advancement",
+                    features: {
+                      coaching: "Unlimited + Priority",
+                      skillPaths: "All + Custom paths",
+                      progress: "Advanced insights",
+                      resume: "AI + Expert review",
+                      interview: "Mock interviews",
+                      support: "Priority + 1-on-1",
+                    },
+                  },
+                ].map((plan, index) => (
+                  <motion.div
+                    key={plan.name}
+                    className={`relative rounded-2xl border-2 p-8 ${
+                      plan.popular 
+                        ? 'border-teal-500 bg-teal-50/50 shadow-xl scale-105' 
+                        : 'border-gray-200 bg-white'
+                    }`}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    {plan.popular && (
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                        <span className="bg-teal-600 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                          <Sparkles className="w-4 h-4" /> Most Popular
+                        </span>
+                      </div>
                     )}
-                  </div>
 
-                  <p className="text-sm text-gray-600 mb-6 pb-6 border-b border-gray-100">
-                    Perfect for individuals looking to advance their career
-                  </p>
+                    <h3 className="text-2xl font-bold text-gray-900 font-serif mb-2">{plan.name}</h3>
+                    <div className="mb-6">
+                      <span className="text-4xl font-bold text-gray-900">
+                        ${isAnnual ? plan.annualPrice : plan.monthlyPrice}
+                      </span>
+                      <span className="text-gray-500">/mo</span>
+                      {isAnnual && (
+                        <p className="text-sm text-gray-400 line-through">
+                          ${plan.monthlyPrice}/mo monthly
+                        </p>
+                      )}
+                    </div>
 
-                  <ul className="space-y-4 mb-8">
-                    <FeatureRow label="AI Career Coaching" value="Unlimited sessions" />
-                    <FeatureRow label="Personalized Skill Paths" value="All paths included" />
-                    <FeatureRow label="Progress Tracking" value="Detailed analytics" />
-                    <FeatureRow label="Resume Builder" value="AI-powered" />
-                    <FeatureRow label="Interview Prep" value="Practice sessions" />
-                    <FeatureRow label="Support" value="Email + Chat" />
-                    <FeatureRow label="Trial" value="14 days free" />
-                  </ul>
+                    <p className="text-sm text-gray-600 mb-6 pb-6 border-b border-gray-100">
+                      {plan.description}
+                    </p>
 
-                  <Button className="w-full h-12 text-base font-semibold bg-teal-600 hover:bg-teal-700 text-white">
-                    Start 14-day Free Trial
-                  </Button>
-                  <p className="text-xs text-gray-400 text-center mt-3">No credit card required</p>
-                </motion.div>
+                    <ul className="space-y-4 mb-8">
+                      <FeatureRow label="AI Coaching" value={plan.features.coaching} />
+                      <FeatureRow label="Skill Paths" value={plan.features.skillPaths} />
+                      <FeatureRow label="Progress Tracking" value={plan.features.progress} />
+                      <FeatureRow label="Resume Builder" value={plan.features.resume} />
+                      <FeatureRow label="Interview Prep" value={plan.features.interview} />
+                      <FeatureRow label="Support" value={plan.features.support} />
+                      <FeatureRow label="Trial" value="14 days free" />
+                    </ul>
+
+                    <Button 
+                      className={`w-full h-12 text-base font-semibold ${
+                        plan.popular 
+                          ? 'bg-teal-600 hover:bg-teal-700 text-white' 
+                          : 'bg-teal-600 hover:bg-teal-700 text-white'
+                      }`}
+                    >
+                      Start 14-day Free Trial
+                    </Button>
+                    <p className="text-xs text-gray-400 text-center mt-3">No credit card required</p>
+                  </motion.div>
+                ))}
               </div>
 
               <p className="text-center text-gray-500 mt-10 font-serif">
