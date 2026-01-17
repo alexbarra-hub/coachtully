@@ -1,9 +1,29 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { z } from "https://deno.land/x/zod@v3.21.4/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+// Input validation schemas
+const MessageSchema = z.object({
+  role: z.enum(["user", "assistant"]),
+  content: z.string().min(1).max(10000),
+});
+
+const UserProfileSchema = z.object({
+  jobTitle: z.string().max(100).nullable().optional(),
+  currentGoal: z.string().max(500).nullable().optional(),
+  skillsAssessed: z.boolean().nullable().optional(),
+  lastSessionSummary: z.string().max(1000).nullable().optional(),
+}).nullable().optional();
+
+const RequestSchema = z.object({
+  messages: z.array(MessageSchema).max(100),
+  userProfile: UserProfileSchema,
+});
 
 const SYSTEM_PROMPT = `You are Tully, a friendly AI career coach for frontline workers at small and medium businesses. You help employees grow from entry-level roles to leadership positions through personalized skills assessment and development.
 
@@ -46,7 +66,7 @@ If user profile info is provided (job title, goal, etc.), greet them warmly by a
 NEW USERS:
 Start with a warm welcome, briefly explain you'll do a quick skills check-in, then ask their current role before beginning the assessment.`;
 
-function buildSystemPrompt(userProfile?: { jobTitle?: string | null; currentGoal?: string | null; skillsAssessed?: boolean; lastSessionSummary?: string | null }) {
+function buildSystemPrompt(userProfile?: { jobTitle?: string | null; currentGoal?: string | null; skillsAssessed?: boolean | null; lastSessionSummary?: string | null } | null) {
   let prompt = SYSTEM_PROMPT;
   
   if (userProfile && (userProfile.jobTitle || userProfile.currentGoal || userProfile.skillsAssessed)) {
@@ -75,7 +95,58 @@ serve(async (req) => {
   }
 
   try {
-    const { messages, userProfile } = await req.json();
+    // Validate JWT authentication
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      console.error("Missing or invalid Authorization header");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+      { global: { headers: { Authorization: authHeader } } }
+    );
+
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    
+    if (claimsError || !claimsData?.claims) {
+      console.error("JWT validation failed:", claimsError?.message);
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userId = claimsData.claims.sub;
+    console.log("Authenticated user:", userId);
+
+    // Parse and validate request body
+    let requestBody;
+    try {
+      requestBody = await req.json();
+    } catch {
+      return new Response(
+        JSON.stringify({ error: "Invalid JSON body" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const validationResult = RequestSchema.safeParse(requestBody);
+    if (!validationResult.success) {
+      console.error("Validation error:", validationResult.error.message);
+      return new Response(
+        JSON.stringify({ error: "Invalid request format" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const { messages, userProfile } = validationResult.data;
+
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {

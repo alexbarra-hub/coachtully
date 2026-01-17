@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { toast } from "sonner";
 import { useUserProfile, UserProfile } from "./useUserProfile";
+import { supabase } from "@/integrations/supabase/client";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -51,11 +52,20 @@ export function useCareerCoach() {
     let assistantContent = "";
 
     try {
+      // Get the user's session token for authenticated requests
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        toast.error("Please sign in to continue");
+        setIsLoading(false);
+        setIsStreaming(false);
+        return;
+      }
+
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({ 
           messages: [...messages, userMsg],
@@ -178,11 +188,20 @@ export function useCareerCoach() {
     let assistantContent = "";
 
     try {
+      // Get the user's session token for authenticated requests
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        toast.error("Please sign in to continue");
+        setIsLoading(false);
+        setIsStreaming(false);
+        return;
+      }
+
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({ 
           messages: [],
