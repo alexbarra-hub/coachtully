@@ -278,38 +278,6 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 px-6 bg-poppy-warm-gradient text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold font-serif mb-12">
-            Trusted by Growing Businesses
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-              <p className="text-xl font-serif italic mb-4">
-                "Saved $15K in hiring costs"
-              </p>
-              <p className="text-white/80 font-semibold">— Retail Chain Owner</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-              <p className="text-xl font-serif italic mb-4">
-                "Our turnover dropped 25% in 3 months"
-              </p>
-              <p className="text-white/80 font-semibold">— Restaurant Group Manager</p>
-            </div>
-          </div>
-
-          {/* Logo placeholders */}
-          <div className="flex flex-wrap items-center justify-center gap-8 opacity-60">
-            <div className="w-24 h-8 bg-white/20 rounded"></div>
-            <div className="w-28 h-8 bg-white/20 rounded"></div>
-            <div className="w-20 h-8 bg-white/20 rounded"></div>
-            <div className="w-24 h-8 bg-white/20 rounded"></div>
-          </div>
-        </div>
-      </section>
-
       {/* Footer CTA */}
       <section className="py-12 px-6 bg-gray-900 text-white text-center">
         <p className="text-gray-400 mb-4">Ready to build the skills your team needs to grow?</p>
