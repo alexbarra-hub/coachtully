@@ -43,7 +43,7 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
         </h1>
         
         <p className="text-lg text-muted-foreground max-w-xl mb-6 leading-relaxed font-serif">
-          Your AI coach for going from frontline to leadership.
+          Your AI coach for building the skills that get you promoted.
         </p>
 
         <motion.div
