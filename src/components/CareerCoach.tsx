@@ -81,12 +81,14 @@ export function CareerCoach() {
                   Sign Out
                 </button>
               ) : (
-                <Link 
-                  to="/auth"
-                  className="text-teal-600 hover:text-teal-700 font-serif text-sm font-medium transition-colors"
+                <Button 
+                  asChild
+                  className="bg-teal-600 hover:bg-teal-700 text-white font-serif text-sm font-medium"
                 >
-                  Sign In
-                </Link>
+                  <Link to="/auth">
+                    Start your 14 day Trial Now
+                  </Link>
+                </Button>
               )}
             </nav>
           </div>
