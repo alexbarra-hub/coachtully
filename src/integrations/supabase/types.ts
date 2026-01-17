@@ -17,8 +17,12 @@ export type Database = {
       profiles: {
         Row: {
           created_at: string
+          current_goal: string | null
           email: string | null
           id: string
+          job_title: string | null
+          last_session_summary: string | null
+          skills_assessed: boolean | null
           subscription_status: string
           trial_end_date: string
           trial_start_date: string
@@ -27,8 +31,12 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          current_goal?: string | null
           email?: string | null
           id?: string
+          job_title?: string | null
+          last_session_summary?: string | null
+          skills_assessed?: boolean | null
           subscription_status?: string
           trial_end_date?: string
           trial_start_date?: string
@@ -37,8 +45,12 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          current_goal?: string | null
           email?: string | null
           id?: string
+          job_title?: string | null
+          last_session_summary?: string | null
+          skills_assessed?: boolean | null
           subscription_status?: string
           trial_end_date?: string
           trial_start_date?: string
