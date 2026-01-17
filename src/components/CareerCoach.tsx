@@ -1,20 +1,29 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCareerCoach } from "@/hooks/useCareerCoach";
+import { useAuth } from "@/contexts/AuthContext";
 import { ChatMessage } from "@/components/ChatMessage";
 import { ChatInput } from "@/components/ChatInput";
 import { WelcomeHero } from "@/components/WelcomeHero";
 import { Button } from "@/components/ui/button";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, LogOut } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Link } from "react-router-dom";
 import tullyLogo from "@/assets/tully-logo.png";
 
 export function CareerCoach() {
   const { messages, isLoading, isStreaming, sendMessage, startConversation, resetChat } = useCareerCoach();
+  const { user, isLoading: authLoading, signOut } = useAuth();
   const [hasStarted, setHasStarted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleStart = async () => {
+    // Require authentication to start the assessment
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
     setHasStarted(true);
     await startConversation();
   };
@@ -22,6 +31,12 @@ export function CareerCoach() {
   const handleReset = () => {
     resetChat();
     setHasStarted(false);
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    setHasStarted(false);
+    resetChat();
   };
 
   const scrollToIntro = () => {
@@ -57,6 +72,22 @@ export function CareerCoach() {
               >
                 Pricing
               </Link>
+              {user ? (
+                <button
+                  onClick={handleSignOut}
+                  className="text-muted-foreground hover:text-foreground font-serif text-sm transition-colors flex items-center gap-1"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Sign Out
+                </button>
+              ) : (
+                <Link 
+                  to="/auth"
+                  className="text-teal-600 hover:text-teal-700 font-serif text-sm font-medium transition-colors"
+                >
+                  Sign In
+                </Link>
+              )}
             </nav>
           </div>
         </header>
