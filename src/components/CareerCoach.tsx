@@ -86,7 +86,7 @@ export function CareerCoach() {
                   className="bg-teal-600 hover:bg-teal-700 text-white font-serif text-sm font-medium"
                 >
                   <Link to="/auth">
-                    Start your 14 day Trial Now
+                    Start Your Trial Now!
                   </Link>
                 </Button>
               )}
