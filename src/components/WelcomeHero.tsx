@@ -148,7 +148,7 @@ export function WelcomeHero({ onStart }: WelcomeHeroProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Button
             onClick={onStart}
